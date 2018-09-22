@@ -1,5 +1,5 @@
-const Syodo = artifacts.require("./Syodo.sol");
+const Syodo = artifacts.require('./Syodo.sol');
 
-module.exports = function(deployer) {
+module.exports = function (deployer) {
   deployer.deploy(Syodo);
 };
