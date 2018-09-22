@@ -7,9 +7,9 @@ import "openzeppelin-solidity/contracts/token/ERC721/ERC721Holder.sol";
 import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 
 
-contract Syodo is ERC721Full, ERC721Mintable, ERC721Burnable, ERC721Holder, Ownable {
+contract ZenArt is ERC721Full, ERC721Mintable, ERC721Burnable, ERC721Holder, Ownable {
   constructor() public
-    ERC721Full("Syodo", "SYD")
+    ERC721Full("ZenArt", "ZAT")
   {
   }
 

@@ -4,19 +4,13 @@ import {
   Form,
   Input,
   Button,
-  Label,
-  Loader,
-  Icon,
-  Dimmer,
-  Message,
 } from 'semantic-ui-react';
 import Head from 'next/head';
-import ipfs from '../lib/ipfs';
 import web3 from '../lib/web3';
-import Syodo from '../lib/syodo';
+import ZenArt from '../lib/ZenArt';
 import config from '../config';
 
-class SyodoIndex extends Component {
+class ZenArtIndex extends Component {
   constructor () {
     super();
     this.state = {
@@ -31,12 +25,12 @@ class SyodoIndex extends Component {
   checkTokenId = async () => {
     try {
       const accounts = await web3.eth.getAccounts();
-      const syodo = await Syodo.methods
+      const tokenId = await ZenArt.methods
         .tokenOfOwnerByIndex(accounts[0], this.state.tokenId)
         .call();
-      console.log(syodo);
-      const tokenUri = await Syodo.methods
-        .tokenURI(syodo)
+      console.log(tokenId);
+      const tokenUri = await ZenArt.methods
+        .tokenURI(tokenId)
         .call();
       console.log(tokenUri);
     } catch (err) {
@@ -82,4 +76,4 @@ class SyodoIndex extends Component {
   }
 }
 
-export default SyodoIndex;
+export default ZenArtIndex;

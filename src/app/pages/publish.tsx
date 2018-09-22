@@ -13,10 +13,10 @@ import {
 import Head from 'next/head';
 import ipfs from '../lib/ipfs';
 import web3 from '../lib/web3';
-import Syodo from '../lib/syodo';
+import ZenArt from '../lib/ZenArt';
 import config from '../config';
 
-class SyodoPublish extends Component {
+class ZenArtPublish extends Component {
   constructor () {
     super();
     this.state = {
@@ -59,7 +59,7 @@ class SyodoPublish extends Component {
     return `${config.ipfs.gateway_url}${hash}`;
   }
 
-  createSyodo = async () => {
+  createZenArt = async () => {
     const name = this.state.name;
     const description = this.state.description;
 
@@ -86,9 +86,9 @@ class SyodoPublish extends Component {
 
     try {
       const accounts = await web3.eth.getAccounts();
-      const fee = await Syodo.methods.getPaperFee().call();
+      const fee = await ZenArt.methods.getPaperFee().call();
       console.log(fee);
-      const txReceipt = await Syodo.methods
+      const txReceipt = await ZenArt.methods
           .mintPaper(this.ipfsUrl(this.state.added_data_hash))
           .send({
               from: accounts[0],
@@ -106,7 +106,7 @@ class SyodoPublish extends Component {
   handleSubmit = async (event) => {
     event.preventDefault()
     this.setState({ loading: true, errorMessage: '', successMessage: '' });
-    this.createSyodo();
+    this.createZenArt();
     this.setState({ loading: false });
   }
 
@@ -183,4 +183,4 @@ class SyodoPublish extends Component {
   }
 }
 
-export default SyodoPublish;
+export default ZenArtPublish;

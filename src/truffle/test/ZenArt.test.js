@@ -8,14 +8,14 @@ chai.use(chaiBigNumber());
 chai.use(chaiAsPromised);
 const { expect, assert } = chai;
 
-const Syodo = artifacts.require('Syodo');
+const ZenArt = artifacts.require('ZenArt');
 
-contract('SyodoTest', async (accounts) => {
+contract('ZenArtTest', async (accounts) => {
   let instance;
   let owner;
 
   beforeEach(async () => {
-    instance = await Syodo.deployed();
+    instance = await ZenArt.deployed();
     owner = await instance.owner();
     await instance.setPaperFee(0);
   });
