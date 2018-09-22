@@ -7,7 +7,7 @@ import "openzeppelin-solidity/contracts/token/ERC721/ERC721Holder.sol";
 import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 
 
-contract Syodo is ERC721Full, ERC721Mintable, ERC721Burnable, Ownable {
+contract Syodo is ERC721Full, ERC721Mintable, ERC721Burnable, ERC721Holder, Ownable {
   constructor() public
     ERC721Full("Syodo", "SYD")
   {
@@ -24,8 +24,9 @@ contract Syodo is ERC721Full, ERC721Mintable, ERC721Burnable, Ownable {
     returns (bool)
   {
     require(msg.value == paperFee);
+    require(msg.sender != address(0));
 
-    uint tokenId = totalSupply().add(1);
+    uint256 tokenId = uint256(keccak256(abi.encodePacked(_tokenURI)));
     _mint(msg.sender, tokenId);
     _setTokenURI(tokenId, _tokenURI);
     return true;
