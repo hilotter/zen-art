@@ -18,6 +18,10 @@ contract('ZenArtTest', async (accounts) => {
     instance = await ZenArt.deployed();
     owner = await instance.owner();
     await instance.setPaperFee(0);
+    const balance = await instance.getBalanceContract();
+    if (balance.gt(0)) {
+      await instance.withdraw(balance);
+    }
   });
 
   it('Should make first account an owner', async () => {
@@ -74,6 +78,32 @@ contract('ZenArtTest', async (accounts) => {
 
       const afterPaperFee = await instance.getPaperFee();
       expect(afterPaperFee).to.bignumber.equal(ether(0.1));
+    });
+  });
+
+  describe('getBalanceContract', () => {
+    it('gets balance', async () => {
+      await instance.setPaperFee(ether(1));
+      await instance.mintPaper('https://gateway.ipfs.io/ipfs/contract_balance', { value: ether(1) }).should.be.fulfilled;
+      const balance = await instance.getBalanceContract();
+      expect(balance).to.bignumber.equal(ether(1));
+    });
+  });
+
+  describe('withdraw', () => {
+    it('withdraws only owner', async () => {
+      await instance.setPaperFee(ether(1));
+      await instance.mintPaper('https://gateway.ipfs.io/ipfs/withdraw_test', { value: ether(1) }).should.be.fulfilled;
+      await instance.mintPaper('https://gateway.ipfs.io/ipfs/withdraw_test2', { value: ether(1) }).should.be.fulfilled;
+
+      await instance.withdraw(ether(2)).should.be.fulfilled;
+    });
+
+    it('should not withdraws other account', async () => {
+      await instance.setPaperFee(ether(1));
+      await instance.mintPaper('https://gateway.ipfs.io/ipfs/withdraw_test3', { value: ether(1) }).should.be.fulfilled;
+
+      await assertRevert(instance.withdraw(ether(1), { from: accounts[1] }));
     });
   });
 });

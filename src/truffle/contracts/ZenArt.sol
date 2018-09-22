@@ -39,4 +39,14 @@ contract ZenArt is ERC721Full, ERC721Mintable, ERC721Burnable, ERC721Holder, Own
   function getPaperFee() external view returns (uint128) {
     return paperFee;
   }
+
+  function getBalanceContract() external constant returns(uint){
+    return address(this).balance;
+  }
+
+  function withdraw(uint256 _amount) external onlyOwner {
+    require(_amount <= address(this).balance);
+
+    msg.sender.transfer(_amount);
+  }
 }

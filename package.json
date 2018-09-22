@@ -6,7 +6,7 @@
     "lint": "eslint --fix src/app",
     "dev": "cd \"src/app\" && next",
     "test": "cd \"src/truffle\" && truffle test",
-    "truffle": "cd \"src/truffle\" && truffle --"
+    "truffle": "cd \"src/truffle\" && truffle"
   },
   "dependencies": {
     "@zeit/next-typescript": "^1.1.1",
