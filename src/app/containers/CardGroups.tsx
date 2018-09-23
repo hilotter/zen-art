@@ -45,7 +45,7 @@ class CardGroups extends Component {
           description,
           image,
         });
-        if (recentlyListedItems.length >= 6) {
+        if (recentlyListedItems.length >= 24) {
           break;
         }
       }
