@@ -36,12 +36,16 @@ class ZenArtPublish extends Component {
     event.stopPropagation();
     event.preventDefault();
 
+    this.setState({ loading: true });
+
     const file = event.target.files[0];
     let reader = new window.FileReader();
     reader.onloadend = () => {
       this.saveFileToIpfs(reader.result, "added_file_hash");
     };
     reader.readAsArrayBuffer(file);
+
+    this.setState({ loading: false });
   }
 
   saveFileToIpfs = async (data, stateKey) => {
@@ -106,7 +110,7 @@ class ZenArtPublish extends Component {
   handleSubmit = async (event) => {
     event.preventDefault()
     this.setState({ loading: true, errorMessage: '', successMessage: '' });
-    this.createZenArt();
+    await this.createZenArt();
     this.setState({ loading: false });
   }
 
