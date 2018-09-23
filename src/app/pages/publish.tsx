@@ -48,7 +48,7 @@ class ZenArtPublish extends Component {
     const buffer = Buffer.from(data);
     
     try {
-      const response = await ipfs.add(buffer, { progress: (prog) => console.log(`received: ${prog}`) });
+      const response = await ipfs.add(buffer);
       const ipfsId = response[0].hash;
       this.setState({ [stateKey]: ipfsId });
     } catch(err) {
@@ -88,7 +88,6 @@ class ZenArtPublish extends Component {
     try {
       const accounts = await web3.eth.getAccounts();
       const fee = await ZenArt.methods.getPaperFee().call();
-      console.log(fee);
       const txReceipt = await ZenArt.methods
           .mintPaper(this.state.added_file_hash, this.ipfsUrl(this.state.added_data_hash))
           .send({

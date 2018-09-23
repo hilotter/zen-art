@@ -13,10 +13,18 @@ contract ZenArt is ERC721Full, ERC721Mintable, ERC721Burnable, ERC721Holder, Own
   {
   }
 
+  struct Paper {
+    string ipfsHash;
+    address publisher;
+  }
+
+  Paper[] public papers;
+  mapping (string => uint256) ipfsHashToTokenId;
+
   uint128 private paperFee = 0 ether;
 
   function mintPaper (
-    string _imageHash,
+    string _ipfsHash,
     string _tokenURI
   )
     external
@@ -26,8 +34,11 @@ contract ZenArt is ERC721Full, ERC721Mintable, ERC721Burnable, ERC721Holder, Own
   {
     require(msg.value == paperFee);
     require(msg.sender != address(0));
+    require(ipfsHashToTokenId[_ipfsHash] == 0);
 
-    uint256 tokenId = uint256(keccak256(abi.encodePacked(_imageHash)));
+    Paper memory _paper = Paper({ipfsHash: _ipfsHash, publisher: msg.sender});
+    uint256 tokenId = papers.push(_paper) - 1;
+    ipfsHashToTokenId[_ipfsHash] = tokenId;
     _mint(msg.sender, tokenId);
     _setTokenURI(tokenId, _tokenURI);
     return true;

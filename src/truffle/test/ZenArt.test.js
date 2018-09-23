@@ -41,8 +41,9 @@ contract('ZenArtTest', async (accounts) => {
       });
 
       it('should be unique', async () => {
-        const imageHash = 'test';
+        const imageHash = 'uniq';
         const ipfsUri = 'https://gateway.ipfs.io/ipfs/test';
+        await instance.mintPaper(imageHash, ipfsUri);
         await assertRevert(instance.mintPaper(imageHash, ipfsUri, { from: accounts[1] }));
       });
     });

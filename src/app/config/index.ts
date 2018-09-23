@@ -10,7 +10,7 @@ const configs = {
     },
     site_url: 'http://localhost:3000',
     etherscan_url: 'https://rinkeby.etherscan.io',
-    contract_address: '0x9e639e072c5e3ca65ed8f7bcd3933ee182afa79c',
+    contract_address: '0x65c74c870bf1c51db41e077603e3add7fc624bc3',
     network_id: 1111,
   },
   staging: {
@@ -22,7 +22,7 @@ const configs = {
     },
     site_url: 'https://rinkeby.zen-art.app',
     etherscan_url: 'https://rinkeby.etherscan.io',
-    contract_address: '0x283ba450a50c14088fd1d22be5f957d9d76a86f5',
+    contract_address: '0xd5fbc7879a17416ac3796861a7296e403423bd02',
     network_id: 4,
   },
   production: {
