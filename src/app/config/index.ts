@@ -12,6 +12,7 @@ const configs = {
     etherscan_url: 'https://rinkeby.etherscan.io',
     contract_address: '0x65c74c870bf1c51db41e077603e3add7fc624bc3',
     network_id: 1111,
+    opensea_url: 'https://rinkeby.opensea.io/category/zenart',
   },
   staging: {
     ipfs: {
@@ -24,6 +25,7 @@ const configs = {
     etherscan_url: 'https://rinkeby.etherscan.io',
     contract_address: '0xd5fbc7879a17416ac3796861a7296e403423bd02',
     network_id: 4,
+    opensea_url: 'https://rinkeby.opensea.io/category/zenartv3',
   },
   production: {
     ipfs: {
@@ -36,6 +38,7 @@ const configs = {
     etherscan_url: 'https://etherscan.io',
     contract_address: '',
     network_id: 1,
+    opensea_url: '',
   },
 }[env];
 
