@@ -31,8 +31,9 @@ contract('ZenArtTest', async (accounts) => {
   describe('mintPaper', () => {
     context('without fee', () => {
       it('creates token with tokenURI', async () => {
+        const imageHash = 'test';
         const ipfsUri = 'https://gateway.ipfs.io/ipfs/test';
-        await instance.mintPaper(ipfsUri);
+        await instance.mintPaper(imageHash, ipfsUri);
 
         const tokenId = await instance.tokenOfOwnerByIndex(owner, 0);
         const tokenUri = await instance.tokenURI(tokenId);
@@ -40,24 +41,27 @@ contract('ZenArtTest', async (accounts) => {
       });
 
       it('should be unique', async () => {
+        const imageHash = 'test';
         const ipfsUri = 'https://gateway.ipfs.io/ipfs/test';
-        await assertRevert(instance.mintPaper(ipfsUri, { from: accounts[1] }));
+        await assertRevert(instance.mintPaper(imageHash, ipfsUri, { from: accounts[1] }));
       });
     });
 
     context('require fee', () => {
       it('rejects without fee', async () => {
         await instance.setPaperFee(ether(0.1));
-        const ipfsUri = 'https://gateway.ipfs.io/ipfs/fee_test';
+        const imageHash = 'fee_test';
+        const ipfsUri = 'https://gateway.ipfs.io/ipfs/test';
 
-        await assertRevert(instance.mintPaper(ipfsUri));
+        await assertRevert(instance.mintPaper(imageHash, ipfsUri));
       });
 
       it('creates token by fee', async () => {
         await instance.setPaperFee(ether(0.1));
-        const ipfsUri = 'https://gateway.ipfs.io/ipfs/fee_test';
+        const imageHash = 'fee_test';
+        const ipfsUri = 'https://gateway.ipfs.io/ipfs/test';
 
-        await instance.mintPaper(ipfsUri, { value: ether(0.1) }).should.be.fulfilled;
+        await instance.mintPaper(imageHash, ipfsUri, { value: ether(0.1) }).should.be.fulfilled;
       });
     });
   });
@@ -84,7 +88,7 @@ contract('ZenArtTest', async (accounts) => {
   describe('getBalanceContract', () => {
     it('gets balance', async () => {
       await instance.setPaperFee(ether(1));
-      await instance.mintPaper('https://gateway.ipfs.io/ipfs/contract_balance', { value: ether(1) }).should.be.fulfilled;
+      await instance.mintPaper('balance', 'https://gateway.ipfs.io/ipfs/test', { value: ether(1) }).should.be.fulfilled;
       const balance = await instance.getBalanceContract();
       expect(balance).to.bignumber.equal(ether(1));
     });
@@ -93,15 +97,15 @@ contract('ZenArtTest', async (accounts) => {
   describe('withdraw', () => {
     it('withdraws only owner', async () => {
       await instance.setPaperFee(ether(1));
-      await instance.mintPaper('https://gateway.ipfs.io/ipfs/withdraw_test', { value: ether(1) }).should.be.fulfilled;
-      await instance.mintPaper('https://gateway.ipfs.io/ipfs/withdraw_test2', { value: ether(1) }).should.be.fulfilled;
+      await instance.mintPaper('balance1', 'https://gateway.ipfs.io/ipfs/test', { value: ether(1) }).should.be.fulfilled;
+      await instance.mintPaper('balance2', 'https://gateway.ipfs.io/ipfs/test', { value: ether(1) }).should.be.fulfilled;
 
       await instance.withdraw(ether(2)).should.be.fulfilled;
     });
 
     it('should not withdraws other account', async () => {
       await instance.setPaperFee(ether(1));
-      await instance.mintPaper('https://gateway.ipfs.io/ipfs/withdraw_test3', { value: ether(1) }).should.be.fulfilled;
+      await instance.mintPaper('balance3', 'https://gateway.ipfs.io/ipfs/test', { value: ether(1) }).should.be.fulfilled;
 
       await assertRevert(instance.withdraw(ether(1), { from: accounts[1] }));
     });

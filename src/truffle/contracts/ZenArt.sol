@@ -16,6 +16,7 @@ contract ZenArt is ERC721Full, ERC721Mintable, ERC721Burnable, ERC721Holder, Own
   uint128 private paperFee = 0 ether;
 
   function mintPaper (
+    string _imageHash,
     string _tokenURI
   )
     external
@@ -26,7 +27,7 @@ contract ZenArt is ERC721Full, ERC721Mintable, ERC721Burnable, ERC721Holder, Own
     require(msg.value == paperFee);
     require(msg.sender != address(0));
 
-    uint256 tokenId = uint256(keccak256(abi.encodePacked(_tokenURI)));
+    uint256 tokenId = uint256(keccak256(abi.encodePacked(_imageHash)));
     _mint(msg.sender, tokenId);
     _setTokenURI(tokenId, _tokenURI);
     return true;

@@ -10,7 +10,7 @@ const configs = {
     },
     site_url: 'http://localhost:3000',
     etherscan_url: 'https://rinkeby.etherscan.io',
-    contract_address: '0x6fa47ad74e10b927d115655c88a48d3bb4320cd5',
+    contract_address: '0x9e639e072c5e3ca65ed8f7bcd3933ee182afa79c',
     network_id: 1111,
   },
   staging: {

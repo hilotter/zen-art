@@ -10,6 +10,7 @@ import {
   Dimmer,
   Message,
 } from 'semantic-ui-react';
+import Link from 'next/link';
 import Layout from '../containers/Layout';
 import ipfs from '../lib/ipfs';
 import web3 from '../lib/web3';
@@ -89,7 +90,7 @@ class ZenArtPublish extends Component {
       const fee = await ZenArt.methods.getPaperFee().call();
       console.log(fee);
       const txReceipt = await ZenArt.methods
-          .mintPaper(this.ipfsUrl(this.state.added_data_hash))
+          .mintPaper(this.state.added_file_hash, this.ipfsUrl(this.state.added_data_hash))
           .send({
               from: accounts[0],
               value: fee,
@@ -163,6 +164,11 @@ class ZenArtPublish extends Component {
             <Message success>
               <Message.Header>Success!</Message.Header>
               <p>{this.state.successMessage}</p>
+              <p>
+                <Link href="/">
+                  <a>check top page</a>
+                </Link>
+              </p>
             </Message>
           </Form>
 
