@@ -22,7 +22,7 @@ const configs = {
     },
     site_url: 'https://rinkeby.zen-art.app',
     etherscan_url: 'https://rinkeby.etherscan.io',
-    contract_address: '0x4386525cee17200d46dd6cb4660f4fe078b13750',
+    contract_address: '0x283ba450a50c14088fd1d22be5f957d9d76a86f5',
     network_id: 4,
   },
   production: {
