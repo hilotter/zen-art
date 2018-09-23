@@ -10,7 +10,7 @@ import {
   Dimmer,
   Message,
 } from 'semantic-ui-react';
-import Head from 'next/head';
+import Layout from '../containers/Layout';
 import ipfs from '../lib/ipfs';
 import web3 from '../lib/web3';
 import ZenArt from '../lib/ZenArt';
@@ -120,10 +120,11 @@ class ZenArtPublish extends Component {
     } else {
       return (
         <Container>
+          <p>Let's upload your original Zen Art.</p>
           <Form onSubmit={this.handleSubmit} error={!!this.state.errorMessage} success={!!this.state.successMessage}>
             <Form.Field>
               <Input
-                placeholder="name"
+                placeholder="zen art name"
                 value={this.state.name}
                 onChange={event => this.setState({ name: event.target.value })}
                 type="text"
@@ -131,7 +132,7 @@ class ZenArtPublish extends Component {
             </Form.Field>
             <Form.Field>
               <Input
-                placeholder="description"
+                placeholder="zen art description"
                 value={this.state.description}
                 onChange={event => this.setState({ description: event.target.value })}
                 type="text"
@@ -142,11 +143,11 @@ class ZenArtPublish extends Component {
               <Icon name="file" />
               Image
             </Label>
-            <input id="file" hidden type="file" onChange={this.captureFile} />
+            <input id="file" hidden type="file" accept="image/*" onChange={this.captureFile} />
             <p>
               <img
                 src={this.state.added_file_hash ? this.ipfsUrl(this.state.added_file_hash) : null}
-                style={{ "display": (this.state.added_file_hash ? "block" : "none") }}
+                style={{ "display": (this.state.added_file_hash ? "block" : "none"), "maxHeight": "500px" }}
               />
             </p>
 
@@ -164,6 +165,31 @@ class ZenArtPublish extends Component {
               <p>{this.state.successMessage}</p>
             </Message>
           </Form>
+
+          <ul>
+            <li>
+              What is Zen Art ?
+              <ul>
+                <li>Japanese calligraphy</li>
+                <li>Literati painting</li>
+              </ul>
+            </li>
+            <li>
+              How can I create Zen Art ?
+              <ul>
+                <li>We recommend <a href="http://psoftmobile.net/en/zenbrush.html" target="_blank" rel="noreferrer noopener">Zen Brush</a> App if you use iOS.</li>
+                <li>We are finding Android App for Zen Art. Please tell me if you have good app.</li>
+              </ul>
+            </li>
+            <li>
+              Note
+              <ul>
+                <li>Published Zen Art cannot be deleted.</li>
+                <li>Please do not upload ilegal contents.</li>
+                <li>This service assumes no responsibility.</li>
+              </ul>
+            </li>
+          </ul>
         </Container>
       )
     }
@@ -171,14 +197,9 @@ class ZenArtPublish extends Component {
 
   render () {
     return (
-      <Container text>
-        <Head>
-          <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-          <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.css" />
-        </Head>
-
+      <Layout>
         {this.getContent()}
-      </Container>
+      </Layout>
     );
   }
 }
