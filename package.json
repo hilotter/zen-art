@@ -6,11 +6,29 @@
     "lint": "eslint --fix src/app",
     "dev": "cd \"src/app\" && next",
     "test": "cd \"src/truffle\" && truffle test",
-    "truffle": "cd \"src/truffle\" && truffle"
+    "truffle": "cd \"src/truffle\" && truffle",
+    "preserve": "npm run build-public && npm run build-funcs && npm run build-app && npm run copy-deps && npm run install-deps",
+    "predeploy": "npm run build-public && npm run build-funcs && npm run build-app && npm run copy-deps",
+    "deploy": "firebase use default && firebase deploy",
+    "predeploy:production": "npm run build-public && npm run build-funcs && npm run build-app:production && npm run copy-deps",
+    "deploy:production": "firebase use production && firebase deploy",
+    "clean": "rimraf \"dist/functions/**\" && rimraf \"dist/public\"",
+    "build-public": "cpx \"src/public/**/*.*\" \"dist/public\" -C && cpx \"src/app/static/**/*.*\" \"dist/public/static\" -C",
+    "build-funcs": "babel \"src/functions\" --out-dir \"dist/functions\"",
+    "build-app": "NODE_ENV=production ENV=staging next build \"src/app/\"",
+    "build-app:production": "NODE_ENV=production ENV=production next build \"src/app/\"",
+    "copy-deps": "cpx \"*{package.json,package-lock.json,yarn.lock}\" \"dist/functions\" -C",
+    "install-deps": "cd \"dist/functions\" && npm i"
+  },
+  "engines": {
+    "node": "8"
   },
   "dependencies": {
+    "@babel/runtime": "^7.0.0",
     "@zeit/next-typescript": "^1.1.1",
     "axios": "^0.18.0",
+    "firebase-admin": "^6.0.0",
+    "firebase-functions": "^2.0.5",
     "ipfs-api": "^24.0.2",
     "next": "^7.0.0",
     "react": "^16.5.2",
@@ -19,6 +37,8 @@
     "web3": "1.0.0-beta.36"
   },
   "devDependencies": {
+    "@babel/cli": "^7.1.0",
+    "@babel/core": "^7.1.0",
     "@types/next": "^6.1.7",
     "@types/react": "^16.4.14",
     "babel-plugin-transform-define": "^1.3.0",
@@ -28,19 +48,22 @@
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
     "chai-bignumber": "^2.0.2",
+    "cpx": "^1.5.0",
     "eslint": "^5.6.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.11.1",
+    "firebase-tools": "^4.2.1",
     "ganache-cli": "^6.1.8",
     "mocha": "^5.2.0",
     "openzeppelin-solidity": "v2.0.0-rc.2",
+    "rimraf": "^2.6.2",
     "solc": "^0.4.25",
     "truffle": "^4.1.14",
     "truffle-hdwallet-provider": "^0.0.6"
   },
-  "author": "",
-  "license": "ISC",
-  "description": ""
+  "author": "hilotter",
+  "license": "MIT",
+  "description": "zen art"
 }

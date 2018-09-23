@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "default": "rinkeby-zen-art",
+    "production": "live-zen-art"
+  }
+}
