@@ -115,93 +115,85 @@ class ZenArtPublish extends Component {
   }
 
   getContent = () => {
-    if (this.state.loading) {
-      return(
-        <Dimmer active inverted>
-          <Loader inverted content='Loading' />
-        </Dimmer>
-      );
-    } else {
-      return (
-        <Container>
-          <p>Let's upload your original Zen Art.</p>
-          <Form onSubmit={this.handleSubmit} error={!!this.state.errorMessage} success={!!this.state.successMessage}>
-            <Form.Field>
-              <Input
-                placeholder="zen art name"
-                value={this.state.name}
-                onChange={event => this.setState({ name: event.target.value })}
-                type="text"
-              />
-            </Form.Field>
-            <Form.Field>
-              <Input
-                placeholder="zen art description"
-                value={this.state.description}
-                onChange={event => this.setState({ description: event.target.value })}
-                type="text"
-              />
-            </Form.Field>
-
-            <Label width="4" as="label" htmlFor="file" size="big">
-              <Icon name="file" />
-              Image
-            </Label>
-            <input id="file" hidden type="file" accept="image/*" onChange={this.captureFile} />
-            <p>
-              <img
-                src={this.state.added_file_hash ? this.ipfsUrl(this.state.added_file_hash) : null}
-                style={{ "display": (this.state.added_file_hash ? "block" : "none"), "maxHeight": "500px" }}
-              />
-            </p>
-
-            <Button
-              loading={this.state.loading}
-              disabled={this.state.loading}
-              content="Publish Zen Art"
-              icon="paint brush"
-              secondary
+    return (
+      <Container>
+        <p>Let's upload your original Zen Art.</p>
+        <Form onSubmit={this.handleSubmit} error={!!this.state.errorMessage} success={!!this.state.successMessage}>
+          <Form.Field>
+            <Input
+              placeholder="zen art name"
+              value={this.state.name}
+              onChange={event => this.setState({ name: event.target.value })}
+              type="text"
             />
+          </Form.Field>
+          <Form.Field>
+            <Input
+              placeholder="zen art description"
+              value={this.state.description}
+              onChange={event => this.setState({ description: event.target.value })}
+              type="text"
+            />
+          </Form.Field>
 
-            <Message error header="Oops!" content={this.state.errorMessage} /> 
-            <Message success>
-              <Message.Header>Success!</Message.Header>
-              <p>{this.state.successMessage}</p>
-              <p>
-                <Link href="/">
-                  <a>check top page</a>
-                </Link>
-              </p>
-            </Message>
-          </Form>
+          <Label width="4" as="label" htmlFor="file" size="big">
+            <Icon name="file" />
+            Image
+          </Label>
+          <input id="file" hidden type="file" accept="image/*" onChange={this.captureFile} />
+          <p>
+            <img
+              src={this.state.added_file_hash ? this.ipfsUrl(this.state.added_file_hash) : null}
+              style={{ "display": (this.state.added_file_hash ? "block" : "none"), "maxHeight": "500px" }}
+            />
+          </p>
 
-          <ul>
-            <li>
-              What is Zen Art ?
-              <ul>
-                <li>Japanese calligraphy</li>
-                <li>Literati painting</li>
-              </ul>
-            </li>
-            <li>
-              How can I create Zen Art ?
-              <ul>
-                <li>We recommend <a href="http://psoftmobile.net/en/zenbrush.html" target="_blank" rel="noreferrer noopener">Zen Brush</a> App if you use iOS.</li>
-                <li>We are finding Android App for Zen Art. Please tell me if you have good app.</li>
-              </ul>
-            </li>
-            <li>
-              Note
-              <ul>
-                <li>Published Zen Art cannot be deleted.</li>
-                <li>Please do not upload ilegal contents.</li>
-                <li>This service assumes no responsibility.</li>
-              </ul>
-            </li>
-          </ul>
-        </Container>
-      )
-    }
+          <Button
+            loading={this.state.loading}
+            disabled={this.state.loading}
+            content="Publish Zen Art"
+            icon="paint brush"
+            secondary
+          />
+
+          <Message error header="Oops!" content={this.state.errorMessage} /> 
+          <Message success>
+            <Message.Header>Success!</Message.Header>
+            <p>{this.state.successMessage}</p>
+            <p>
+              <Link href="/">
+                <a>check top page</a>
+              </Link>
+            </p>
+          </Message>
+        </Form>
+
+        <ul>
+          <li>
+            What is Zen Art ?
+            <ul>
+              <li>Japanese calligraphy</li>
+              <li>Literati painting</li>
+            </ul>
+          </li>
+          <li>
+            How can I create Zen Art ?
+            <ul>
+              <li>We recommend <a href="http://psoftmobile.net/en/zenbrush.html" target="_blank" rel="noreferrer noopener">Zen Brush</a> App if you use iOS.</li>
+              <li>We are finding Android App for Zen Art. Please tell me if you have good app.</li>
+            </ul>
+          </li>
+          <li>
+            Note
+            <ul>
+              <li>Published Zen Art cannot be deleted.</li>
+              <li>Please do not upload ilegal contents.</li>
+              <li>This service assumes no responsibility.</li>
+            </ul>
+          </li>
+        </ul>
+      </Container>
+    )
   }
 
   render () {
