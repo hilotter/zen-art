@@ -5,9 +5,7 @@ import {
   Input,
   Button,
   Label,
-  Loader,
   Icon,
-  Dimmer,
   Message,
 } from 'semantic-ui-react';
 import Link from 'next/link';
@@ -99,7 +97,6 @@ class ZenArtPublish extends Component {
               value: fee,
           })
           .on('transactionHash');
-      await web3.eth.getTransactionReceiptMined(txReceipt.transactionHash);
       this.setState({ successMessage: `Published your zen art!` });
     } catch (err) {
       console.error(err);
@@ -160,9 +157,10 @@ class ZenArtPublish extends Component {
           <Message success>
             <Message.Header>Success!</Message.Header>
             <p>{this.state.successMessage}</p>
+            <p>Your transaction is mining now. Please wait a little while more.</p>
             <p>
               <Link href="/">
-                <a>check top page</a>
+                <a>after that please check top page</a>
               </Link>
             </p>
           </Message>
