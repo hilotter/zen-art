@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import ZenArt from '../lib/ZenArt';
+import { getTokenIdByIndex, getTokenDetail } from '../lib/ZenArtUtil';
 import CardGroupsComponent from '../components/CardGroups';
 
 class CardGroups extends Component {
@@ -12,44 +12,16 @@ class CardGroups extends Component {
     this.getRecentListedItems();
   }
 
-  getTokenIdByIndex = async (i) => {
-    const tokenId = await ZenArt.methods.tokenByIndex(i).call();
-    return tokenId;
-  }
-
-  getTokenUriById = async (tokenId) => {
-    const tokenUri = await ZenArt.methods.tokenURI(tokenId).call();
-    return tokenUri;
-  }
-
   getRecentListedItems = async () => {
     let recentlyListedItems = [];
     const totalSupply = await ZenArt.methods.totalSupply().call();
     for (let i = totalSupply - 1; i >= 0; i--) {
-      let tokenId = await this.getTokenIdByIndex(i);
-      let tokenUri = await this.getTokenUriById(tokenId);
-
-      let res;
-      try {
-        res = await axios.get(tokenUri);
-        if (res.status != 200) {
-          continue;
-        }
-      } catch (err) {
-        console.log(err);
+      let tokenId = await getTokenIdByIndex(i);
+      let tokenDetail = await getTokenDetail(tokenId);
+      if (!tokenDetail) {
         continue;
       }
-
-      let name = res.data.name;
-      let description = res.data.description;
-      let image = res.data.image;
-      recentlyListedItems.push({
-        tokenId,
-        tokenUri,
-        name,
-        description,
-        image,
-      });
+      recentlyListedItems.push(tokenDetail);
       if (recentlyListedItems.length >= 24) {
         break;
       }
