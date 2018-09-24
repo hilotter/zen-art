@@ -1,13 +1,12 @@
 pragma solidity ^0.4.24;
 
 import "openzeppelin-solidity/contracts/token/ERC721/ERC721Full.sol";
-import "openzeppelin-solidity/contracts/token/ERC721/ERC721Mintable.sol";
 import "openzeppelin-solidity/contracts/token/ERC721/ERC721Burnable.sol";
 import "openzeppelin-solidity/contracts/token/ERC721/ERC721Holder.sol";
 import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 
 
-contract ZenArt is ERC721Full, ERC721Mintable, ERC721Burnable, ERC721Holder, Ownable {
+contract ZenArt is ERC721Full, ERC721Burnable, ERC721Holder, Ownable {
   constructor() public
     ERC721Full("ZenArt", "ZAT")
   {
@@ -29,7 +28,6 @@ contract ZenArt is ERC721Full, ERC721Mintable, ERC721Burnable, ERC721Holder, Own
   )
     external
     payable
-    onlyBeforeMintingFinished
     returns (bool)
   {
     require(msg.value == paperFee);
