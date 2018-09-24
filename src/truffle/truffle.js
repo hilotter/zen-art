@@ -39,5 +39,17 @@ module.exports = {
       network_id: 4,
       gas: 4600000,
     },
+    mainnet: {
+      provider() {
+        return new HDWalletProvider(
+          mnemonic,
+          infuraUrl,
+          3
+        );
+      },
+      network_id: 1,
+      gas: 4600000,
+      gasPrice: 6000000000,
+    },
   },
 };

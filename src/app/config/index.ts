@@ -38,10 +38,10 @@ const configs = {
     },
     site_url: 'https://zen-art.app',
     etherscan_url: 'https://etherscan.io',
-    contract_address: '',
+    contract_address: '0x40b41a2d4c5fb2da3e08b0a1bbd361b5dd1f7bdd',
     network_id: 1,
     opensea_assets_url: 'https://opensea.io/assets/',
-    opensea_url: '',
+    opensea_url: 'https://opensea.io/category/zenart',
   },
 }[env];
 
