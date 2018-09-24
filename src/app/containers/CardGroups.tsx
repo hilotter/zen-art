@@ -24,33 +24,35 @@ class CardGroups extends Component {
 
   getRecentListedItems = async () => {
     let recentlyListedItems = [];
-    try {
-      const totalSupply = await ZenArt.methods.totalSupply().call();
-      for (let i = totalSupply - 1; i >= 0; i--) {
-        let tokenId = await this.getTokenIdByIndex(i);
-        let tokenUri = await this.getTokenUriById(tokenId);
+    const totalSupply = await ZenArt.methods.totalSupply().call();
+    for (let i = totalSupply - 1; i >= 0; i--) {
+      let tokenId = await this.getTokenIdByIndex(i);
+      let tokenUri = await this.getTokenUriById(tokenId);
 
-        let res = await axios.get(tokenUri);
+      let res;
+      try {
+        res = await axios.get(tokenUri);
         if (res.status != 200) {
           continue;
         }
-
-        let name = res.data.name;
-        let description = res.data.description;
-        let image = res.data.image;
-        recentlyListedItems.push({
-          tokenId,
-          tokenUri,
-          name,
-          description,
-          image,
-        });
-        if (recentlyListedItems.length >= 24) {
-          break;
-        }
+      } catch (err) {
+        console.log(err);
+        continue;
       }
-    } catch (err) {
-      console.log(err);
+
+      let name = res.data.name;
+      let description = res.data.description;
+      let image = res.data.image;
+      recentlyListedItems.push({
+        tokenId,
+        tokenUri,
+        name,
+        description,
+        image,
+      });
+      if (recentlyListedItems.length >= 24) {
+        break;
+      }
     }
 
     this.setState({ recentlyListedItems });

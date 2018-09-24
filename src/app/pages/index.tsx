@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import {
+  Container,
   Header,
   Image,
   Dimmer,
   Loader,
+  Button,
 } from 'semantic-ui-react';
+import Link from 'next/link';
 import Layout from '../containers/Layout';
 import CardGroups from '../containers/CardGroups';
 
@@ -30,13 +33,25 @@ class ZenArtIndex extends Component {
     } else {
       return (
         <div>
-          <Image src="/static/img/header_photo.png" size='huge' centered />
-
+          <p>
+            <Image src="/static/img/header_photo.png" size='huge' centered />
+          </p>
           <Header as='h2' textAlign='center'>
-            <Header.Content>
-              Showcase digital Zen artwork & collectables
-            </Header.Content>
+            Showcase digital Zen artwork & collectables
+            <Header.Subheader>
+              Zen Art is published on IPFS and associated to Ethereum ERC721 token.
+            </Header.Subheader>
           </Header>
+
+          <Container textAlign='center'>
+            <Link href="/publish">
+              <Button
+                content="Publish"
+                icon="paint brush"
+                secondary
+              />
+            </Link>
+          </Container>
 
           <Header as='h2' textAlign='center'>
             <Header.Content>

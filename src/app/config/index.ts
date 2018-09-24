@@ -10,8 +10,9 @@ const configs = {
     },
     site_url: 'http://localhost:3000',
     etherscan_url: 'https://rinkeby.etherscan.io',
-    contract_address: '0x65c74c870bf1c51db41e077603e3add7fc624bc3',
+    contract_address: '0x51b7400da873249f18b3e3813cb48a1073753345',
     network_id: 1111,
+    opensea_assets_url: 'https://rinkeby.opensea.io/assets/',
     opensea_url: 'https://rinkeby.opensea.io/category/zenart',
   },
   staging: {
@@ -23,9 +24,10 @@ const configs = {
     },
     site_url: 'https://rinkeby.zen-art.app',
     etherscan_url: 'https://rinkeby.etherscan.io',
-    contract_address: '0xd5fbc7879a17416ac3796861a7296e403423bd02',
+    contract_address: '0xc21f729684e62df7ba860d88aa0e702308a5d18e',
     network_id: 4,
-    opensea_url: 'https://rinkeby.opensea.io/category/zenartv3',
+    opensea_assets_url: 'https://rinkeby.opensea.io/assets/',
+    opensea_url: 'https://rinkeby.opensea.io/category/zenartv4',
   },
   production: {
     ipfs: {
@@ -38,6 +40,7 @@ const configs = {
     etherscan_url: 'https://etherscan.io',
     contract_address: '',
     network_id: 1,
+    opensea_assets_url: 'https://opensea.io/assets/',
     opensea_url: '',
   },
 }[env];
