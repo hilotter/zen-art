@@ -107,7 +107,7 @@ class ZenArtDetail extends Component {
         <Layout>
           <Head 
             ogType="article"
-            image={token.image}
+            image={token.image.replace(/infura\./,'')}
             description={token.description ? `${token.name} - ${token.description}` : token.name}
             url={`${config.site_url}/detail/${token.tokenId}`}
           />
