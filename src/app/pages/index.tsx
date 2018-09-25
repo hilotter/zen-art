@@ -9,9 +9,33 @@ import {
 } from 'semantic-ui-react';
 import Link from 'next/link';
 import Layout from '../containers/Layout';
-import CardGroups from '../containers/CardGroups';
+import Head from '../components/Head';
+import ZenArt from '../lib/ZenArt';
+import { getTokenIdByIndex, getTokenDetail } from '../lib/ZenArtUtil';
+import CardGroups from '../components/CardGroups';
 
 class ZenArtIndex extends Component {
+  static async getInitialProps() {
+    let recentlyListedItems = [];
+    try {
+      const totalSupply = await ZenArt.methods.totalSupply().call();
+      for (let i = totalSupply - 1; i >= 0; i--) {
+        let tokenId = await getTokenIdByIndex(i);
+        let tokenDetail = await getTokenDetail(tokenId);
+        if (!tokenDetail) {
+          continue;
+        }
+        recentlyListedItems.push(tokenDetail);
+        if (recentlyListedItems.length >= 24) {
+          break;
+        }
+      }
+    } catch(err) {
+      console.log(err);
+    }
+    return { items: recentlyListedItems };
+  }
+
   constructor () {
     super();
     this.state = {
@@ -58,7 +82,7 @@ class ZenArtIndex extends Component {
               Recently Listed
             </Header.Content>
           </Header>
-          <CardGroups />
+          <CardGroups items={this.props.items} />
         </div>
       )
     }
@@ -67,6 +91,7 @@ class ZenArtIndex extends Component {
   render () {
     return (
       <Layout>
+        <Head />
         {this.getContent()}
       </Layout>
     );

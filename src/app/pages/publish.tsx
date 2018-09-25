@@ -10,6 +10,7 @@ import {
 } from 'semantic-ui-react';
 import Link from 'next/link';
 import Layout from '../containers/Layout';
+import Head from '../components/Head';
 import ipfs from '../lib/ipfs';
 import web3 from '../lib/web3';
 import ZenArt from '../lib/ZenArt';
@@ -197,6 +198,7 @@ class ZenArtPublish extends Component {
   render () {
     return (
       <Layout>
+        <Head />
         {this.getContent()}
       </Layout>
     );

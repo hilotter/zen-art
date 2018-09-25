@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Message } from 'semantic-ui-react';
+import { withRouter } from 'next/router'
 import web3 from '../lib/web3';
 import LayoutComponent from '../components/Layout';
 import InstallMetamask from '../components/InstallMetamask';
@@ -9,16 +10,26 @@ class Layout extends Component {
   state = {
     metamaskInstalled: true,
     validNetworkId: true,
-    networkName: ''
+    networkName: '',
+    ssrPage: true,
   }
 
   async componentDidMount() {
+    if (this.props.router.route === '/publish') {
+      this.setState({ ssrPage: false });
+    }
+
     if (!window.web3) {
       this.setState({ metamaskInstalled: false });
     }
 
-    const networkId = await web3.eth.net.getId();
-    if (networkId !== config.network_id) {
+    try {
+      const networkId = await web3.eth.net.getId();
+      if (networkId !== config.network_id) {
+        this.setState({ validNetworkId: false });
+      }
+    } catch(err) {
+      //console.log(err);
       this.setState({ validNetworkId: false });
     }
 
@@ -37,10 +48,10 @@ class Layout extends Component {
   }
 
   render() {
-    if (this.state.metamaskInstalled) {
+    if (this.state.metamaskInstalled || this.state.ssrPage) {
       return (
         <LayoutComponent networkName={this.state.networkName}>
-          <Message error hidden={this.state.validNetworkId} header="Oops!" content={`you're on the wrong network. open your wallet and switch over to the "${this.state.networkName}" network.`} />
+          <Message error hidden={this.state.validNetworkId || this.state.ssrPage} header="Oops!" content={`you're on the wrong network. open your wallet and switch over to the "${this.state.networkName}" network.`} />
           {this.props.children}
         </LayoutComponent>
       );
@@ -54,4 +65,4 @@ class Layout extends Component {
   }
 }
 
-export default Layout;
+export default withRouter(Layout);

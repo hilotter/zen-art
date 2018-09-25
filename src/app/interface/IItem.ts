@@ -4,6 +4,7 @@ interface IItem {
   name: string,
   description: string,
   image: string,
+  linkUrl: string,
 }
 
 export default IItem;
