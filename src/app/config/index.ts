@@ -10,7 +10,7 @@ const configs = {
     },
     site_url: 'http://localhost:3000',
     etherscan_url: 'https://rinkeby.etherscan.io',
-    contract_address: '0x51b7400da873249f18b3e3813cb48a1073753345',
+    contract_address: '0x24b1fc41ee84d4d858ff029b2add3e89401b95ea',
     network_id: 1111,
     opensea_assets_url: 'https://rinkeby.opensea.io/assets/',
     opensea_url: 'https://rinkeby.opensea.io/category/zenart',

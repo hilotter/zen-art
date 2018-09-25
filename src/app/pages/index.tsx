@@ -9,6 +9,7 @@ import {
 } from 'semantic-ui-react';
 import Link from 'next/link';
 import Layout from '../containers/Layout';
+import Head from '../components/Head';
 import ZenArt from '../lib/ZenArt';
 import { getTokenIdByIndex, getTokenDetail } from '../lib/ZenArtUtil';
 import CardGroups from '../components/CardGroups';
@@ -90,6 +91,7 @@ class ZenArtIndex extends Component {
   render () {
     return (
       <Layout>
+        <Head />
         {this.getContent()}
       </Layout>
     );

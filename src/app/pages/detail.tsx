@@ -5,11 +5,14 @@ import {
   Dimmer,
   Loader,
   Header,
+  Button,
 } from 'semantic-ui-react';
 import Error from 'next/error';
+import Head from '../components/Head';
 import Layout from '../containers/Layout';
 import { getTokenDetail } from '../lib/ZenArtUtil';
 import CardItem from '../components/CardItem';
+import config from '../config';
 
 class ZenArtDetail extends Component {
   static async getInitialProps({ req }) {
@@ -34,6 +37,14 @@ class ZenArtDetail extends Component {
     this.setState({ pageLoading: false });
   }
 
+  twitterShare = () => {
+    const token = this.props.token;
+    const shareText = `This is my favorite ZenArt! ${token.name} :`;
+    const shareUrl = `${config.site_url}/detail/${token.tokenId}`;
+    const hashtags = 'zenart';
+    window.open(`https://twitter.com/intent/tweet?url=${encodeURI(shareUrl)}&text=${shareText}&hashtags=${hashtags}`);
+  }
+
   getContent = () => {
     const token = this.props.token;
     if (this.state.pageLoading) {
@@ -44,8 +55,8 @@ class ZenArtDetail extends Component {
       );
     } else {
       return (
-        <Container>
-          <Header as='h2' textAlign='center'>
+        <Container textAlign='center'>
+          <Header as='h2'>
             {token.name}
             <Header.Subheader>
               {token.description}
@@ -62,6 +73,26 @@ class ZenArtDetail extends Component {
               linkUrl={token.linkUrl}
             />
           </Card.Group>
+          <Container>
+            <Container style={{ marginTop: '10px' }}>
+              <a
+                href={token.linkUrl}
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                <Button
+                  content="Go to OpenSea"
+                  secondary
+                />
+              </a>
+            </Container>
+            <Container style={{ marginTop: '10px' }}>
+              <p>
+                Share
+              </p>
+              <Button circular color='twitter' icon='twitter' secondary onClick={this.twitterShare} />
+            </Container>
+          </Container>
         </Container>
       );
     }
@@ -71,8 +102,15 @@ class ZenArtDetail extends Component {
     if(this.state.notFound) {
       return <Error statusCode={404} />
     } else {
+      const token = this.props.token;
       return (
         <Layout>
+          <Head 
+            ogType="article"
+            image={token.image}
+            description={token.description ? `${token.name} - ${token.description}` : token.name}
+            url={`${config.site_url}/detail/${token.tokenId}`}
+          />
           {this.getContent()}
         </Layout>
       );
