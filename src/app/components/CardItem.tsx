@@ -4,13 +4,25 @@ import IItem from '../interface/IItem';
 
 export default (props: IItem) => (
   <Card>
-    <a
-      href={props.linkUrl}
-      target="_blank"
-      rel="noreferrer noopener"
-    >
-      <Image src={props.image} centered />
-    </a>
+    {(() => {
+      if (props.internalLink) {
+        return(
+          <a href={props.linkUrl}>
+            <Image src={props.image} centered />
+          </a>
+        );
+      } else {
+        return(
+          <a
+            href={props.linkUrl}
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            <Image src={props.image} centered />
+          </a>
+        );
+      }
+    })()}
     <Card.Content>
       <Card.Header>{props.name}</Card.Header>
       <Card.Description>{props.description}</Card.Description>

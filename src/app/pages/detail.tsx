@@ -71,6 +71,7 @@ class ZenArtDetail extends Component {
               description={token.description}
               image={token.image}
               linkUrl={token.linkUrl}
+              internalLink={false}
             />
           </Card.Group>
           <Container>

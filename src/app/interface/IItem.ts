@@ -5,6 +5,7 @@ interface IItem {
   description: string,
   image: string,
   linkUrl: string,
+  internalLink: boolean,
 }
 
 export default IItem;

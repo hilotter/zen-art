@@ -7,7 +7,15 @@ export default (props: IItems) => (
   <Card.Group centered>
     {props.items.map((item, i) => {
       return (
-        <CardItem key={i} {...item} />
+        <CardItem key={i}
+          tokenId={item.tokenId}
+          tokenUri={item.tokenUri}
+          name={item.name}
+          description={item.description}
+          image={item.image}
+          linkUrl={`/detail/${item.tokenId}`}
+          internalLink={true}
+        />
       );
     })}
   </Card.Group>
