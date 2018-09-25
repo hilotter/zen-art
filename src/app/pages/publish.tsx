@@ -7,6 +7,7 @@ import {
   Label,
   Icon,
   Message,
+  Loader,
 } from 'semantic-ui-react';
 import Link from 'next/link';
 import Layout from '../containers/Layout';
@@ -21,6 +22,7 @@ class ZenArtPublish extends Component {
     super();
     this.state = {
       loading: false,
+      uploading: false,
       name: '',
       description: '',
       added_file_hash: null,
@@ -35,16 +37,15 @@ class ZenArtPublish extends Component {
     event.stopPropagation();
     event.preventDefault();
 
-    this.setState({ loading: true });
+    this.setState({ uploading: true });
 
     const file = event.target.files[0];
     let reader = new window.FileReader();
     reader.onloadend = () => {
       this.saveFileToIpfs(reader.result, "added_file_hash");
+      this.setState({ uploading: false });
     };
     reader.readAsArrayBuffer(file);
-
-    this.setState({ loading: false });
   }
 
   saveFileToIpfs = async (data, stateKey) => {
@@ -139,6 +140,7 @@ class ZenArtPublish extends Component {
             Image
           </Label>
           <input id="file" hidden type="file" accept="image/*" onChange={this.captureFile} />
+          <Loader active={this.state.uploading} inline />
           <p>
             <img
               src={this.state.added_file_hash ? this.ipfsUrl(this.state.added_file_hash) : null}
