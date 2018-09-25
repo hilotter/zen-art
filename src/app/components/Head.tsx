@@ -18,6 +18,5 @@ export default props => (
     <meta name="twitter:image" content={props.image ? props.image : `${config.site_url}/static/img/ogp.png`} />
     <link rel="shortcut icon" href={`${config.site_url}/static/img/favicon.png`} />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.css" />
   </Head>
 );
