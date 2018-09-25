@@ -5,15 +5,13 @@ import config from '../config';
 
 export default props => (
   <Menu style={{ marginTop: '10px' }}>
-    <Link href="/">
-      <a className="item">
-        <Header as="h4">
-          <Header.Content>
-            ZenArt β
-          </Header.Content>
-        </Header>
-      </a>
-    </Link>
+    <a className="item" href="/">
+      <Header as="h4">
+        <Header.Content>
+          ZenArt β
+        </Header.Content>
+      </Header>
+    </a>
     <Menu.Item>
       <p>
         {props.networkName}

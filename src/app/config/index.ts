@@ -14,6 +14,7 @@ const configs = {
     network_id: 1111,
     opensea_assets_url: 'https://rinkeby.opensea.io/assets/',
     opensea_url: 'https://rinkeby.opensea.io/category/zenart',
+    infura_url: 'http://localhost:8545',
   },
   staging: {
     ipfs: {
@@ -28,6 +29,7 @@ const configs = {
     network_id: 4,
     opensea_assets_url: 'https://rinkeby.opensea.io/assets/',
     opensea_url: 'https://rinkeby.opensea.io/category/zenartv4',
+    infura_url: 'https://rinkeby.infura.io/v3/a9a2a79a18fd4305823eb196b8b88f65',
   },
   production: {
     ipfs: {
@@ -42,6 +44,7 @@ const configs = {
     network_id: 1,
     opensea_assets_url: 'https://opensea.io/assets/',
     opensea_url: 'https://opensea.io/category/zenart',
+    infura_url: 'https://mainnet.infura.io/v3/a9a2a79a18fd4305823eb196b8b88f65',
   },
 }[env];
 

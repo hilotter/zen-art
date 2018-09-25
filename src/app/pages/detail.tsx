@@ -7,36 +7,35 @@ import {
   Header,
 } from 'semantic-ui-react';
 import Error from 'next/error';
-import { withRouter } from 'next/router';
 import Layout from '../containers/Layout';
 import { getTokenDetail } from '../lib/ZenArtUtil';
 import CardItem from '../components/CardItem';
 
 class ZenArtDetail extends Component {
+  static async getInitialProps({ req }) {
+    const match = req.url.match(/detail\/(\d+)/);
+    const tokenId = match[1];
+    const tokenDetail = await getTokenDetail(tokenId);
+    return { token: tokenDetail };
+  }
+
   constructor () {
     super();
     this.state = {
       notFound: false,
       pageLoading: true,
-      tokenId: null,
-      tokenUri: null,
-      name: null,
-      description: null,
-      image: null,
     };
   }
 
   async componentDidMount() {
-    const { router } = this.props;
-    const tokenId = router.query.tokenId;
-    const tokenDetail = await getTokenDetail(tokenId);
-    if (!tokenDetail) {
+    if (!this.props.token) {
       this.setState({ notFound: true });
     }
-    this.setState({ pageLoading: false, ...tokenDetail });
+    this.setState({ pageLoading: false });
   }
 
   getContent = () => {
+    const token = this.props.token;
     if (this.state.pageLoading) {
       return(
         <Dimmer active inverted>
@@ -47,19 +46,20 @@ class ZenArtDetail extends Component {
       return (
         <Container>
           <Header as='h2' textAlign='center'>
-            {this.state.name}
+            {token.name}
             <Header.Subheader>
-              {this.state.description}
+              {token.description}
             </Header.Subheader>
           </Header>
 
           <Card.Group centered>
             <CardItem
-              tokenId={this.state.tokenId}
-              tokenUri={this.state.tokenUri}
-              name={this.state.name}
-              description={this.state.description}
-              image={this.state.image}
+              tokenId={token.tokenId}
+              tokenUri={token.tokenUri}
+              name={token.name}
+              description={token.description}
+              image={token.image}
+              linkUrl={token.linkUrl}
             />
           </Card.Group>
         </Container>
@@ -80,4 +80,4 @@ class ZenArtDetail extends Component {
   }
 }
 
-export default withRouter(ZenArtDetail);
+export default ZenArtDetail;

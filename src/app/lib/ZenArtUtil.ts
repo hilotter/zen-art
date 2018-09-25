@@ -1,5 +1,6 @@
 import axios from 'axios';
 import ZenArt from './ZenArt';
+import config from '../config';
 
 const getTokenUriById = async (tokenId) => {
   const tokenUri = await ZenArt.methods.tokenURI(tokenId).call();
@@ -25,15 +26,17 @@ const getTokenDetail = async (tokenId) => {
     return;
   }
 
-  let name = res.data.name;
-  let description = res.data.description;
-  let image = res.data.image;
+  const name = res.data.name;
+  const description = res.data.description;
+  const image = res.data.image;
+  const linkUrl = `${config.opensea_assets_url}${config.contract_address}/${tokenId}`;
   return {
     tokenId,
     tokenUri,
     name,
     description,
     image,
+    linkUrl,
   };
 }
 
