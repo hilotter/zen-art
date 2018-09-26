@@ -6,17 +6,10 @@ import config from '../config';
 export default props => (
   <Menu style={{ marginTop: '10px' }}>
     <a className="item" href="/">
-      <Header as="h4">
-        <Header.Content>
-          ZenArt β
-        </Header.Content>
+      <Header as="h4" textAlign='center'>
+        ZenArt β
       </Header>
     </a>
-    <Menu.Item>
-      <p>
-        {props.networkName}
-      </p>
-    </Menu.Item>
 
     <Menu.Menu position="right">
       <a
@@ -25,9 +18,7 @@ export default props => (
         rel="noreferrer noopener"
       >
         <Menu.Item link>
-          <p>
-            Marketplace
-          </p>
+          Marketplace
         </Menu.Item>
       </a>
 

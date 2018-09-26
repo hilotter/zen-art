@@ -6,6 +6,9 @@ export default () => (
     <Divider />
     <footer>
       <p>
+        <a href="/about" style={{ color: '#000' }}>about</a>
+      </p>
+      <p>
         Contact
       </p>
       <p>
@@ -18,7 +21,7 @@ export default () => (
         </a>
       </p>
       <p>
-          copyrights 2018 ZenArt All RIghts Reserved.
+        copyrights 2018 ZenArt All RIghts Reserved.
       </p>
     </footer>
   </Container>
