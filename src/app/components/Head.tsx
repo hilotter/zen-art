@@ -4,7 +4,7 @@ import config from '../config';
 export default props => (
   <Head>
     <title>ZenArt</title>
-    <meta property="og:title" content="ZenArt" />
+    <meta property="og:title" content={props.title ? `${props.title} - ZenArt` : "ZenArt"} />
     <meta property="og:description" content={props.description ? props.description : "Showcase digital Zen artwork & collectables"} />
     <meta name="keywords" content="zen,art,mindfulness" />
     <meta property="og:type" content={props.ogType ? props.ogType : "website"} />
