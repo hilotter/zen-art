@@ -13,7 +13,7 @@ export default props => (
     <meta property="og:site_name" content="ZenArt" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@zenart_chain" />
-    <meta name="twitter:title" content="ZenArt" />
+    <meta name="twitter:title" content={props.title ? `${props.title} - ZenArt` : "ZenArt"} />
     <meta name="twitter:description" content={props.description ? props.description : "Showcase digital Zen artwork & collectables"} />
     <meta name="twitter:image" content={props.image ? props.image : `${config.site_url}/static/img/ogp.png`} />
     <link rel="shortcut icon" href={`${config.site_url}/static/img/favicon.png`} />
