@@ -21,6 +21,9 @@ export default () => (
         </a>
       </p>
       <p>
+        <a href="/privacy" style={{ color: '#000' }}>Privacy Policy</a>
+      </p>
+      <p>
         copyrights 2018 ZenArt All RIghts Reserved.
       </p>
     </footer>

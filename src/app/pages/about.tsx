@@ -13,7 +13,7 @@ class ZenArtAbout extends Component {
     return (
       <Layout>
         <Head />
-        <Container>
+        <Container text>
           <Header as="h4" textAlign='center'>
             Welcome to ZenArt
           </Header>
