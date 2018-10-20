@@ -89,6 +89,15 @@ class ZenArtPublish extends Component {
       return;
     }
 
+    // Modern dapp browsers
+    if (window.ethereum) {
+      try {
+        await ethereum.enable();
+      } catch (err) {
+        this.setState({ errorMessage: err.message });
+      }
+    }
+
     try {
       const accounts = await web3.eth.getAccounts();
       const fee = await ZenArt.methods.getPaperFee().call();

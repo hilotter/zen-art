@@ -3,7 +3,10 @@ import config from '../config';
 
 let web3;
 
-if (typeof window !== 'undefined' && typeof window.web3 !== 'undefined') {
+if (typeof window !== 'undefined' && typeof window.ethereum !== 'undefined') {
+  // https://medium.com/metamask/https-medium-com-metamask-breaking-change-injecting-web3-7722797916a8
+  web3 = new Web3(window.ethereum);
+} else if (typeof window !== 'undefined' && typeof window.web3 !== 'undefined') {
   web3 = new Web3(window.web3.currentProvider);
 } else {
   const infuraUrl = config.infura_url;
