@@ -9,11 +9,12 @@ const app = next({ dev, conf: { distDir: 'next' } });
 const handler = routes.getRequestHandler(app, ({
   req, res, route, query,
 }) => {
-  if (route.pathname === '/detail') {
-    app.render(req, res, '/detail', query);
+  if (route.page === '/') {
+    res.set('Cache-Control', 'public, max-age=300, s-maxage=600');
   } else {
-    app.render(req, res, route.page, query);
+    res.set('Cache-Control', 'public, max-age=86400, s-maxage=2592000');
   }
+  app.render(req, res, route.page, query);
 });
 
 const runtimeOpts = {

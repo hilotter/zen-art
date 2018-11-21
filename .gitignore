@@ -3,4 +3,5 @@ node_modules
 .next
 dist
 src/truffle/build
+src/functions/routes.js
 .firebase
