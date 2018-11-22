@@ -2,6 +2,5 @@ node_modules
 .envrc
 .next
 dist
-src/truffle/build
 src/functions/routes.js
 .firebase
