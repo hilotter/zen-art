@@ -1,2 +1,6 @@
 export HDWALLET_MNEMONIC=''
 export INFURA_URL=https://rinkeby.infura.io/v3/
+
+# worker
+export INFURA_WS_URL=wss://
+export CONTRACT_ADDRESS=
